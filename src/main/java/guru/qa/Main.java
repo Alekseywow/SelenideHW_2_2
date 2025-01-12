@@ -1,160 +1,105 @@
 package guru.qa;
 
-import java.util.List;
+import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        // 8 типов данных, они являются примитивными
-        // Целочисленные типы - можем хранить число со знаком либо + либо -(отличаются диапазоном) ( плюсовой диапазон всегда меньше на единицу)
-        // Чаще всего если используется целочисленное число, то будет использоваться int по той причине что, 0 имеет целочисленный литерал
-        byte aByte = 0; // -128 + 127 занимает место в памяти 8b
-        short aShort = 0; // -32768 + 32767 занимает место в памяти 16b
-        int aInt =0; // -14   занимает место в памяти 32b
-        Integer intWrapper = 0; // Обертка
-        long aLong = 0; //можно использовать long aLong = 0L;//    занимает место в памяти 64b
 
-        // Типы с плавающей точкой ( отличаются диапазоном)
-        // Чаще будет использваться double так как нужно сохранить 1.5 / 1.6
-        float aFloat = 0.0F; //занимает место в памяти 32b
-        double aDouble = 0.0; //занимает место в памяти 64b
-        Double doubleWrapper = 9.1; // Обертка
-        // Символьный тип
-        char aChar = 'a'; // под копотом он хранит числовой код символа который является числом, но пишется символом
-        Character charWrapper = 'a'; // обертка
-        // Логический тип
-        boolean aBoolean = true; // может так же использоваться как boolean aBoolean = false (истина / ложь). Выразить состояние: что то является правдой или неправдой
-        Boolean booleanWrapper = true; // Обертка
-        // Строка ( и бесконечность других объектных типов или ссылочные)
-        String toBePrint = "Hello world!";// В действительности String является классом, описываем новый тип данных в нашей программе.
+        Human dima = new Human(
+                "Aleksey",
+                34,
+                true
+        );
 
+        List<String> lectures = new ArrayList<>();
+        lectures.add("git");
+        lectures.add("java");
+        lectures.add("files");
+        lectures.add("JUnit");
 
-        // Опишем чашку чая
-        class(struct) Cup { // Структура данных ( информация о чашке), struct в Java отсутствует, поэтому мы пишем class
-            //Идея класса состояит в том, чтобы сгрупировать маленькие кусочки данных в новый большую структуру данных с понятным названием
-            String color = "grey";
-            int capacity = 250;
-            boolean hasHandle = true;
+//        List<String> lectures = List.of("git", "java", "files", "JUnit");
+
+        Set<String> lectireSet = Set.of(  // new HashSet
+                "git", "java", "files" , "JUnit"
+        );
+
+        Map<String, Human> humans = new HashMap<>();
+        humans.put("343421122", dima);
+        humans.put("343421121", dima);
+        humans.put("343421123", dima);
+        humans.put("343421124", dima);
+        humans.put("343421125", dima);
+
+        for (Map.Entry<String, Human> entry : humans.entrySet()) {
+            entry.getKey();
+            entry.getValue();
         }
 
-        // Список строк
-        List<String> teachers= List.of("Aleksey", "Alex"); // в документе List.Of прячется в new
-        List<Integer> teachers = List.of(20,30); // В таких случаях мы должны полностью описывать обертку, объектный а не примитивный
+        for (String key : humans.keySet()){
 
-        // Операторы, базовая вещь которая позволяет манипулировать с данными
-
-        // Оператор присвоение '=' - он присваивает то, что находится справа для переменной которая находится слева
-        String name = "Alex";
-
-        //Арифметические операторы, они нужны для работы с числами: такие как целочисленные и числами с плавающей точкой '+', '-', '/', '*', '%', Инкремент'++', Декремент'--'
-        //Пример:
-        System.out.println(4.0 + 3); // Получим результат с типом double 7.0 ( Старший тип, с плавающей точкой)
-        System.out.println(4 / 3); // Получим результат 1 (Деление в Java отбрасывает остаток если оно осуществляется над целыми числами)
-        System.out.println(5 % 3); // получим результат 2 ( % Взятие остатка)
-
-        //Инкремент '++' - прибавление еденицы
-        int result = aInt + 1;
-        System.out.println(result); //Равен 1. Обьяснение: aInt = 0, и к нему прибавляем единицу.
-        // Обьяснение про инкремент
-        int result = ++aInt;
-        System.out.println(result); //Равен 1. Обьяснение: aInt = 0, и к нему прибавляем единицу.
-
-
-        //Декремент '--'
-        int result = aInt - 1;
-        System.out.println(result); //Равен -1. Обьяснение: aInt = 0, и к нему вычитаем единицу.
-        // Обьяснение про инкремент
-        int result = --aInt;
-        System.out.println(result); //Равен -1. Обьяснение: aInt = 0, и к нему вычитаем единицу.
-
-
-        // Операторы сравнения: '<', '>', '>=', '<=', '!=', '==' : они всегда возвращают тип boolean
-        // Пример:
-        System.out.println(3 > 2); // Результат будет true
-        System.out.println(3 == 2); //Результат будет false
-        System.out.println(3 != 2); //Результат будет true
-        System.out.println(3 > 2); //Результат будет false
-        System.out.println(3 >= 2); //Результат будет true
-        // Пример: String нельзя стравинивать '=='
-        String nameFirst = "Aleksey";
-        String nameSecond = "Alex";
-        System.out.println(nameFirst == nameSecond); // Так делать нельзя. Любыве объектные типы нельзя сравнивать оператором '==' а нужно сравнивать методом equals.
-        //Пример сравнение объекта с помощью equals
-        System.out.println(nameFirst.equals(nameSecond)); // Вот так будет правильнее
-
-
-        // Логические операторы, они позволяют группировать несколько boolean значений и получить как итог результат '&'(И),'|'(или),'&&'(сокращенная и),'||'(сокращенная или), '!'
-        //Пример
-        String nameFirst = "Aleksey";
-        int age = 30;
-        System.out.println(nameFirst.equals("Aleksey") && age = 30); // итоговый результат будет true, если оба операнда и левый и правый будет истина
-        //Пример если поменяем условия
-        System.out.println(nameFirst.equals("Aleksey") && age = 34); // итоговый результат будет false, левый истина а правый ложь
-        // Различие & / &&. В частых случаях используется  && ( что бы он сначала проверил левый аперсант а только потом правый, и если левый будет ложь он не будет проверять правый)
-        // null - значение по умолчанию для любого обьекта данных(означает ничто, тоесть там ничего не лежит)
-        // Еше один пример, который показывает различие между & / &&
-
-        String nameFirst = null;
-        //Первый вариант
-        if(nameFirst != null && nameFirst.length()==5) {
-            System.out.println("Удача");
-        } // ничего не выдаст, но тест не упадает, в этом тесте он вычислил слева что аргумент является ложью и он не пойдет проверять то, что находится справа
-
-        //Второй вариант
-        if(nameFirst != null & nameFirst.length()==5) {
-            System.out.println("Удача");
-        } // При использовании '&' Java будет пытать вычеслить все аргументы, сначала слева проверит и потом справа
-
-        //Пример работы аперсанта '||'
-        System.out.println(nameFirst.equals("Aleksey") || age = 30); // Если хотя бы один результат true, то итоговый результат будет true
-
-        //Пример работы аперсанта '!' - он является инверсией, истина на ложь, ложь на истину.
-        System.out.println(!(nameFirst.equals("Aleksey") || age = 30)); // true превращает в false
-        // Пример: допустим мне нужно получить что имя которое указано в переменных не являяется верным, то пропишу:
-        System.out.println(!(nameFirst.equals("Aleksey")); // true превратит в false
-
-
-        //Оператор instanceof проверяет тип данных в райнт тайме и результат будет boolean
-        System.out.println(nameFirst instanceof String); // является ли эта переменная типом String, получим true
-
-
-        //Тернарный оператор - позволяет что то проверить прежде чем что то сделать, есть ограничения
-
-        char sex = 'm';
-
-        String childName = sex == 'm'
-                ? "Valentin"   // true
-                : "Valentina";  // false
-
-        // Управляющая конструкция if если не нужно возвращать результат
-        //Пример первый
-        if (sex == 'm' ) {
-            childName = "Valentin";
-        } else {         // иначе
-            childName = "Valentina";
-        }
-        // Пример второй
-        if (sex == 'm' ) {
-            System.out.println("Мальчик!!");
-        } else {         // иначе
-            System.out.println("Девочка!!");
         }
 
-        // Группировка нескольких if
+        for (Human value : humans.values()) {
 
-        if (sex == 'm' ) {
-            childName = "Valentin";
-        } else if(sex == 'w' ) {
-            childName = "Valentina";
-        } else {
-            System.out.println("((");
         }
 
-        // Ключевое слово new - создает в JAva объекты ( значение которое хранит в себе данные описанные в каком то классе )
-        String name = new String ("Aleksey");
-        // Cиноним
-        String name = "Aleksey";
+        int hours = 12;
+        String hello = "Hello";
+
+        dima.printSomeValues(
+                hours,
+                hello,
+                lectures
+        );
+        System.out.println("Affter method, int: " + hours);
+        System.out.println("Affter method, String: " + hello);
+        System.out.println("Affter method, List: " + lectures);
+
+        String[] lecturesArray = new String[] {"git","java","files","JUnit"};
+        lecturesArray[0] = "git";
+        lecturesArray[1] = "java";
+        lecturesArray[2] = "files";
+        lecturesArray[3] = "jUnit";
+
+        int[] intArray0 = new int[] {1, 2, 3};
+        int[] intArray1 = new int[] {1, 2, 3};
+
+        int[][] bitArray0 = new int[][] {
+                intArray0,
+                intArray1
+        };
+        int[][] bitArray1 = new int[][] {
+                intArray0,
+                intArray1
+        };
+        int[][][] thereArray = new int[][][] {
+                bitArray0,
+                bitArray1
+        };
+
+//        for (int i = 0; i < lecturesArray.length ; i++) {
+//            System.out.println(lecturesArray[i]);
+//        };
+//
+//        for (int i = lecturesArray.length - 1; i >= 0; i--) {
+//            System.out.println(lecturesArray[i]);
+//        };
+
+        for (String lectureName : lecturesArray) {
+            if (!lectureName.startsWith("j")) {
+                continue;
+            }
+            System.out.println(lectureName);
+            return;
+        };
 
 
+//        int i = 0;
+//        while (i < lecturesArray.length) {
+//            System.out.println(lecturesArray[i]);
+//            i++;
+//        }
     }
 }
